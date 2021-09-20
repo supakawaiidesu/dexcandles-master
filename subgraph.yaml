@@ -1,0 +1,46 @@
+specVersion: 0.0.4
+description: DEX trades candles (1m/5m/10m/15m/30m/1h/4h/12h/1d/1w)
+repository: https://github.com/supakawaiidesu
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Factory
+    network: moonriver
+    source:
+      address: '0x056973F631A5533470143bB7010C9229C19C04d2'
+      abi: Factory
+      startBlock: 413536
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/swaps.ts
+      entities:
+        - Pair
+      abis:
+        - name: Factory
+          file: ./abis/factory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handleNewPair
+templates:
+  - kind: ethereum/contract
+    name: Pair
+    network: moonriver
+    source:
+      abi: Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/swaps.ts
+      entities:
+        - Pair
+      abis:
+        - name: Pair
+          file: ./abis/pair.json
+      eventHandlers:
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+
