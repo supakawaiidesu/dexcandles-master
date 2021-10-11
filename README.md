@@ -1,6 +1,10 @@
 # DEX Candles Subgraph
 
-This subgraph tracks all the DEX trades with 5m/15m/1h/4h/1d/1w candles for moonswap.
+This subgraph tracks all the DEX trades with 5m/15m/1h/4h/1d/1w candles.
+
+## Protocols
+
+- [x] PancakeSwap V2
 
 ## Example
 

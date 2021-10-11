@@ -2,6 +2,8 @@ type Pair @entity {
     id: ID! # address
     token0: Bytes!
     token1: Bytes!
+    token0Decimals: Int!
+    token1Decimals: Int!
     factory: ID! #factory address
 }
 
