@@ -9,7 +9,7 @@ import { fetchTokenDecimals, fetchTokenName } from './helpers'
 function getOrCreateToken(tokenAddr: string): Token {
     let t = Token.load(tokenAddr);
     if (t !== null) {
-        return t;
+        return t as Token;
     }
 
     t = new Token(tokenAddr);
@@ -17,11 +17,11 @@ function getOrCreateToken(tokenAddr: string): Token {
     t.symbol = fetchTokenName(tokenAddr)
     t.decimals = fetchTokenDecimals(tokenAddr)
     t.save();
-    return t;
+    return t as Token;
 }
 
 export function handleNewPair(event: PairCreated): void {
-    const pair = new Pair(event.params.pair.toHex());
+    let pair = new Pair(event.params.pair.toHex());
     pair.token0 = getOrCreateToken(event.params.token0.toHexString()).id;
     pair.token1 = getOrCreateToken(event.params.token1.toHexString()).id;
     pair.factory = '0xEF45d134b73241eDa7703fa787148D9C9F4950b0';
@@ -58,9 +58,9 @@ export function handleSwap(event: Swap): void {
 
     let periods: i32[] = [1 * 60, 5 * 60, 10 * 60, 15 * 60, 30 * 60, 60 * 60, 4 * 60 * 60, 12 * 60 * 60, 24 * 60 * 60, 7 * 24 * 60 * 60];
     for (let i = 0; i < periods.length; i++) {
-        const timeId = Bytes.fromI32(timestamp / periods[i]).toString();
-        const periodId = Bytes.fromI32(periods[i]).toString();
-        const candleId = timeId.concat(periodId).concat(tokens);
+        let timeId = Bytes.fromI32(timestamp / periods[i]).toString();
+        let periodId = Bytes.fromI32(periods[i]).toString();
+        let candleId = timeId.concat(periodId).concat(tokens);
         let candle = Candle.load(candleId);
         if (candle === null) {
             candle = new Candle(candleId);
