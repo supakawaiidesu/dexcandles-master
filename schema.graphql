@@ -1,7 +1,14 @@
+type Token @entity {
+    id: ID! # address
+    name: String!
+    symbol: String!
+    decimals: Int!
+}
+
 type Pair @entity {
     id: ID! # address
-    token0: Bytes!
-    token1: Bytes!
+    token0: Token!
+    token1: Token!
     token0Decimals: Int!
     token1Decimals: Int!
     factory: ID! #factory address
@@ -12,8 +19,8 @@ type Candle @entity {
     time: Int!
     period: Int!
     lastBlock: Int!
-    token0: Bytes!
-    token1: Bytes!
+    token0: Token!
+    token1: Token!
 
     token0TotalAmount: BigInt!
     token1TotalAmount: BigInt!

@@ -1,12 +1,12 @@
 specVersion: 0.0.3
 description: DEX trades candles (1m/5m/10m/15m/30m/1h/4h/12h/1d/1w)
-repository: https://github.com/billyriantono
+repository: https://github.com/supakawaiidesu/dexcandles-master
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Factory
-    network: fantom
+    name: Factory # TODO not sure this is right
+    network: fantom # TODO not sure this is right
     source:
       address: '0xEF45d134b73241eDa7703fa787148D9C9F4950b0'
       abi: Factory
