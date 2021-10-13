@@ -19,6 +19,7 @@ type Candle @entity {
     time: Int!
     period: Int!
     lastBlock: Int!
+    pairId: String!
     token0: Token!
     token1: Token!
 

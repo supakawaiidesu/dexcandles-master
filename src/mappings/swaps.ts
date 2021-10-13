@@ -1,9 +1,8 @@
-import {log, BigInt, BigDecimal, Value, Bytes, Address} from '@graphprotocol/graph-ts'
-import {concat} from '@graphprotocol/graph-ts/helper-functions'
-import {Swap} from '../types/templates/Pair/Pair'
-import {PairCreated} from '../types/Factory/Factory'
-import {Pair as PairTemplate} from '../types/templates'
-import {Pair, Candle, Token} from '../types/schema'
+import { BigInt, Bytes } from '@graphprotocol/graph-ts'
+import { Swap } from '../types/templates/Pair/Pair'
+import { PairCreated } from '../types/Factory/Factory'
+import { Pair as PairTemplate } from '../types/templates'
+import { Candle, Pair, Token } from '../types/schema'
 import { fetchTokenDecimals, fetchTokenName } from './helpers'
 
 function getOrCreateToken(tokenAddr: string): Token {
@@ -73,6 +72,7 @@ export function handleSwap(event: Swap): void {
             candle.high = price;
             candle.token0TotalAmount = BigInt.fromI32(0);
             candle.token1TotalAmount = BigInt.fromI32(0);
+            candle.pairId = pair.id;
         } else {
             if (price < candle.low) {
                 candle.low = price;
